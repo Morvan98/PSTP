@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: PSTP
+Version: 0.1.0
+Summary: Protein phase separation predictor and phase separation region predictor
+Home-page: https://github.com/yourusername/your_project_name
+Author: Mofan Feng
+Author-email: fmf.von@sjtu.edu.cn
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7,<3.10.0
+Description-Content-Type: text/markdown
+License-File: LICENCE
+
+## python requirements
+python >= 3.7; python <= 3.9
+## Please install the following packages:
+pip install cython
+pip install numpy
+pip install git+https://git@github.com/idptools/sparrow.git
+pip install idptools-parrot[optimize]
+pip install "fair-esm[esmfold]"
