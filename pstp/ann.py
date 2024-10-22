@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from tqdm import tqdm
 from sklearn.metrics import roc_auc_score,precision_recall_curve,auc
 from functools import partial
-
+np.random.seed(711016)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device = 'cpu'
 

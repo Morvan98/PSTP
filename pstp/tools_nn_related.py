@@ -28,9 +28,8 @@ def seq2matrix_lst(full_sequences):
     for esm_matrix,alba_matrix in zip(list(esm_pos_wide_matrix_lst),
                                     list(alba_mergedmatrix_lst)):
         merged_esm_alba = np.concatenate((esm_matrix,alba_matrix),axis=1)
-        # print(merged_esm_alba.shape)
         full_matrixs_lst.append(merged_esm_alba)
-    return np.array(full_matrixs_lst)  
+    return full_matrixs_lst
 
 def matrixlst_to_matrix(matrix_lst):
     '''

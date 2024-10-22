@@ -26,7 +26,7 @@ def pstp_embedding(seq):
 
 def pstp_embedding_by_batch(seq_lst):
     seq_lst_ = [str(s) for s in seq_lst]
-    for s in seq_lst:
+    for s in seq_lst_:
         _check_seq_tool(s)
     return seq2matrix_lst(seq_lst_)
 
