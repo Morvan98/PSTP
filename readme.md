@@ -6,3 +6,5 @@ pip install numpy
 pip install git+https://git@github.com/idptools/sparrow.git  
 pip install idptools-parrot[optimize]  
 pip install "fair-esm[esmfold]"  
+## Install PSTP
+pip install git+https://git@github.com/Morvan98/PSTP.git
