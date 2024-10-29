@@ -38,7 +38,7 @@ seqs = ['GRGDSPYS'*25,
 seq_matrix_lst = pstp_embedding_by_batch(seqs) # residue-level embedding
 for matrix in seq_matrix_lst:
     print(matrix.shape) # (sequence_length, 650)
-
+### PSTP-Scan predictions
 saps_py_lst,pdps_py_lst,\
     mix_py_lst = [],[],[]
 for matrix_ in seq_matrix_lst:
@@ -48,11 +48,11 @@ for matrix_ in seq_matrix_lst:
     pdps_py_lst.append(p)
     res_p,p = predict_by_mix_models(matrix_)
     mix_py_lst.append(p)
-
 print(saps_py_lst,pdps_py_lst,mix_py_lst)
+### kernel predictions
 saps_py_lst,pdps_py_lst,mix_py_lst = [],[],[]
 for matrix_ in seq_matrix_lst:
-    p = saps_kernel(matrix_)
+    p = saps_kernel(matrix_) 
     saps_py_lst.append(p)
     p = pdps_kernel(matrix_)
     pdps_py_lst.append(p)
