@@ -17,7 +17,6 @@ from pstp.pstp_collections import pstp_scan_mix_prediction # mix: mix-dataset ps
 test_seq = 'GRGDSPYS'*25
 saps_residue_level_scores, saps_scan_predicted, saps_scan_kernel_predicted = pstp_scan_saps_prediction(
     test_seq)
-print(len(saps_residue_level_scores),len(test_seq))
 pdps_residue_level_scores, pdps_scan_predicted, pdps_scan_kernel_predicted = pstp_scan_pdps_prediction(
     test_seq)
 mix_residue_level_scores, mix_scan_predicted, mix_scan_kernel_predicted = pstp_scan_mix_prediction(
@@ -36,9 +35,9 @@ seqs = ['GRGDSPYS'*25,
         'GRGDSPYS'*23,
         'GRGDSPYS'*20,
         ]
-seq_matrix_lst = pstp_embedding_by_batch(seqs)
+seq_matrix_lst = pstp_embedding_by_batch(seqs) # residue-level embedding
 for matrix in seq_matrix_lst:
-    print(matrix.shape)
+    print(matrix.shape) # (sequence_length, 650)
 
 saps_py_lst,pdps_py_lst,\
     mix_py_lst = [],[],[]
