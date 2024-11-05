@@ -3,11 +3,11 @@ The current version of PSTP offers residue-level and sequence-level phase separa
 python >= 3.7; python <= 3.9
 ## Please install the following packages first:
 ```
-pip install cython  
-pip install numpy  
-pip install git+https://git@github.com/idptools/sparrow.git  
-pip install idptools-parrot[optimize]  
-pip install "fair-esm[esmfold]"
+pip install cython  ### required by ALBATROSS when installing
+pip install numpy  ### required by ALBATROSS when installing
+pip install git+https://git@github.com/idptools/sparrow.git  ### ALBATROSS
+pip install idptools-parrot[optimize]  ### ALBATROSS
+pip install "fair-esm[esmfold]" ### ESM-2
 ```
 ## Installation
 ```
