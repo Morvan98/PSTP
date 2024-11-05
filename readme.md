@@ -20,7 +20,7 @@ Here, we provide examples of sequence-level and residue-level phase separation p
 from pstp.pstp_collections import pstp_scan_saps_prediction # saps: self-assembly ps model
 from pstp.pstp_collections import pstp_scan_pdps_prediction # pdps: partner-dependent ps model
 from pstp.pstp_collections import pstp_scan_mix_prediction # mix: mix-dataset ps model
-test_seq = 'GRGDSPYS'*25
+test_seq = 'GRGDSPYS'*25 ## protein sequence example
 saps_residue_level_scores, saps_scan_predicted, saps_scan_kernel_predicted = pstp_scan_saps_prediction(
     test_seq)
 pdps_residue_level_scores, pdps_scan_predicted, pdps_scan_kernel_predicted = pstp_scan_pdps_prediction(
@@ -34,7 +34,7 @@ Here, we provide examples of sequence-level and residue-level phase separation p
 from pstp.pstp_collections import pstp_embedding_by_batch
 from pstp.pstp_collections import predict_by_saps_models,predict_by_pdps_models,predict_by_mix_models # PSTP-Scan models
 from pstp.pstp_collections import saps_kernel,pdps_kernel,mix_kernel # trained MLP kernels of PSTP-Scan
-seqs = ['GRGDSPYS'*25,
+seqs = ['GRGDSPYS'*25, ## protein sequences example
         'ARADSPYS'*25,
         'SRSDSPYS'*25,
         'GRGDSPYS'*24,
