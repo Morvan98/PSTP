@@ -13,7 +13,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device = 'cpu'
 
 
-class sliding_nn(nn.Module):
+class sliding_nn(nn.Module): # PSTP_Scan module
     def __init__(self,dim):
         super(sliding_nn, self).__init__()
         self.layer1 = nn.Linear(dim, 20)
@@ -31,8 +31,6 @@ class sliding_nn(nn.Module):
                 nn.init.constant_(m.bias, 0)
                 
     def slide_net(self,x,kernel_size,padding_size):
-        ### x shape (1,max_len,650)
-        # seq_len,ker_siz,pad= x.shape[1],129,64
         seq_len,ker_siz,pad= x.shape[1],kernel_size,padding_size
         x = x.permute(0, 2, 1)
         x_meaned = F.avg_pool1d(x,ker_siz,padding=pad,stride=1)
@@ -99,7 +97,6 @@ class sliding_nn_fixed(sliding_nn):
             x_meaned = x_meaned.permute(0, 2, 1)
         x_1 = self.layer1(x_meaned)
         x_1 = self.relu(x_1)
-        # x_1 = self.dropout(x_1)
         x_2 = self.layer2(x_1)
         x_3 = self.layer3(x_2)
         x_out = self.sigmoid(x_3)
@@ -123,7 +120,6 @@ class kernel_only(sliding_nn):
         assert x.shape[-1] == self.dim 
         x_1 = self.layer1(x)
         x_1 = self.relu(x_1)
-        # x_1 = self.dropout(x_1)
         x_2 = self.layer2(x_1)
         x_3 = self.layer3(x_2)
         x_out = self.sigmoid(x_3)
@@ -132,26 +128,6 @@ class kernel_only(sliding_nn):
     def forward(self, x):
         x = self.slide_net(x)
         return x
-
-# ###### testing
-# net = kernel_only(650)
-# # state_dict = torch.load('temp/slide_nn_model_weights/dense_650_20_5_1_weights_0.pth')
-# # print(type(state_dict))
-# # print(state_dict.keys())
-# # net.load_state_dict(state_dict)
-
-# for parm in net.layer1.parameters():
-#     print(parm)
-# print(net.layer1.weight)
-# x = torch.randn(5, 650)
-# net.eval()
-# output = net(x)
-# print(output.detach().cpu().numpy())
-
-# # window_score = net.get_window_score(x)
-# # print(window_score)
-# exit()
-
 
 class WeightedBinaryCrossEntropy(nn.Module):
     def __init__(self, pos_weight=2, neg_weight=1):
@@ -167,8 +143,7 @@ class WeightedBinaryCrossEntropy(nn.Module):
 
 def list_to_gfs_matrix(feature_group_list):
     '''
-    feature group list can be [5,10,3],the first 5 as a group, next 10 as a group,
-    last 3 as a group
+    function for generating regularization
     '''
     matrix = [[0] * sum(feature_group_list) for _ in range(len(feature_group_list))]
     start = 0
