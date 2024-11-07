@@ -44,7 +44,7 @@ def seq_list_2_embedding(seq_list_fixlen,chunk_size=chunk_size_):
     len_chunk_1 = False
     for chunk_i in range(0,len(data_),chunk_size):
         data_chunk = data_[chunk_i:chunk_i+chunk_size]
-        if len(data_chunk) == 1:###防止大小为1导致模型报错
+        if len(data_chunk) == 1:
             len_chunk_1 = True
             data_chunk = data_chunk + data_chunk
         _,_,batch_tokens = batch_converter(data_chunk)
@@ -53,15 +53,11 @@ def seq_list_2_embedding(seq_list_fixlen,chunk_size=chunk_size_):
         with torch.no_grad():
             results = model(batch_tokens, repr_layers=[6], return_contacts=False)
         token_representations = results["representations"][6]
-        # Generate per-sequence representations via averaging
-        # NOTE: token 0 is always a beginning-of-sequence token, so the first residue is token 1.
         sequence_representations = []
         for seq_idx_, tokens_len in enumerate(batch_lens):
             matrix_ = token_representations[seq_idx_, 1 : tokens_len - 1].mean(0).cpu().numpy()
             sequence_representations.append(matrix_)
-        # if chunk_i>0 and chunk_i % 1000 == 0:
-        #     print(f' processed chunk {chunk_i}')
-        if len_chunk_1:###防止大小为1导致模型报错
+        if len_chunk_1: 
             matrix_output += [sequence_representations[0]]
         else:
             matrix_output += sequence_representations
@@ -79,7 +75,7 @@ def _seq_2_embedding_pos_matrix_maxsize_window(seq_list_fixlen,chunk_size=chunk_
     for chunk_i in range(0,len(data_),chunk_size):
         data_chunk = data_[chunk_i:chunk_i+chunk_size]
         len_chunk_1 = False
-        if len(data_chunk) == 1:###防止大小为1导致模型报错
+        if len(data_chunk) == 1:
             len_chunk_1 = True
             data_chunk = data_chunk + data_chunk
         _,_,batch_tokens = batch_converter(data_chunk)
@@ -88,14 +84,10 @@ def _seq_2_embedding_pos_matrix_maxsize_window(seq_list_fixlen,chunk_size=chunk_
         with torch.no_grad():
             results = model(batch_tokens, repr_layers=[6], return_contacts=False)
         token_representations = results["representations"][6]
-        # Generate per-sequence representations via averaging
-        # NOTE: token 0 is always a beginning-of-sequence token, so the first residue is token 1.
         embeddings = []
         for seq_idx_, tokens_len in enumerate(batch_lens):
             matrix_ = token_representations[seq_idx_, 1 : tokens_len - 1].cpu().numpy()
             embeddings.append(matrix_)
-        # if chunk_i>0 and chunk_i % 1000 == 0:
-        #     print(f' processed chunk {chunk_i}')
         if len_chunk_1:
             embedding_output += [embeddings[0]]
         else:
@@ -115,6 +107,7 @@ def _generate_sliding_sequences(sequence, window_size=window_size, step_size=50)
 
 RESIDUES_SET = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L',
                     'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y'}
+
 def check_seq_token(seq_to_check):
     if not all(res in RESIDUES_SET for res in seq_to_check):
         return ''.join([res if res in RESIDUES_SET else 'L' for res in seq_to_check])
