@@ -67,5 +67,5 @@ for matrix_ in seq_matrix_lst:
 
 print(saps_py_lst,pdps_py_lst,mix_py_lst)
 ```
-Paper link: https://doi.org/10.1101/2024.10.29.620820
-A new version update is coming soon!
+Paper link: https://doi.org/10.1093/bib/bbaf171
+Preprint: https://doi.org/10.1101/2024.10.29.620820
